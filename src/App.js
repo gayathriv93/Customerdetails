@@ -17,7 +17,7 @@ function App() {
 
         </nav>
         <Switch>
-          <Route path="/Formcomp">
+          <Route exact path="/Formcomp">
             <Formcomp />
           </Route>
           <Route path="/Customertab">
