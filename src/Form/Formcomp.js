@@ -4,22 +4,24 @@ import './Formcomp.css';
 import axios from 'axios';
 
 class Formcomp extends Component {
+    handleSubmit = event => {
+        event.preventDefault();
+    };
+
     componentDidMount() {
 
         axios.post('http://localhost:3002/api/stuff')
             .then((res) => {
                 this.setState({ users: res.data })
             })
-
     }
-
     render() {
         return (
             <div className="container mt-4 bg-info ">
-                <div className="row ">
+                <div className="row">
                     <h3 className="my-3 text-center"> Customer Details</h3>
-                    <form className="mx-5 ">
-                        <div className="row ">
+                    <form className="mx-5" onSubmit={this.handleSubmit}>
+                        <div className="row">
                             <div className="col-12 col-md-1 my-2 mx-1">
                                 <select className="form-control">
                                     <option selected>Mrs..</option>
@@ -71,23 +73,20 @@ class Formcomp extends Component {
                                 <input type="number" className="form-control m-2" placeholder=" Bill Amount" required />
                             </div>
                         </div>
-
                         <div className="row ">
                             <div className="col-6 col-md-2 m-4 ">
-                                <button className="btn btn-primary p-2 fw-bold" >Submit</button>
+                                <button className="btn btn-primary p-2 fw-bold " >Submit</button>
                             </div>
                             <div className="col-6 col-md-2 m-4">
-                                <button className="btn btn-primary p-2 fw-bold">Reset</button>
+                                <button type="reset" className="btn btn-primary p-2 fw-bold">Reset</button>
                             </div>
                         </div>
 
                     </form>
                 </div>
-
             </div >
         );
     }
-
 }
 
 

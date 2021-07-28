@@ -14,7 +14,6 @@ function App() {
           <Link className="text-decoration-none p-2 ms-2 bg-secondary text-white border rounded " to="/Formcomp">CustomerDetails</Link>
           <Link className="text-decoration-none p-2  bg-secondary text-white border rounded " to="/Customertab">CustomerDB</Link>
           <Link className="text-decoration-none p-2  bg-secondary text-white border rounded " to="/Editform">Edit Details</Link>
-
         </nav>
         <Switch>
           <Route exact path="/Formcomp">

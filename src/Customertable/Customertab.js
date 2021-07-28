@@ -1,23 +1,18 @@
 import axios from 'axios';
 import { Component } from 'react';
-
-
 class Customertab extends Component {
     state = {
         users: []
     }
     componentDidMount() {
         console.log("db connected");
-
     }
-
     handleClick = () => {
         axios.get('http://localhost:3002/api/stuff')
             .then((res) => {
                 this.setState({ users: res.data })
             })
     }
-
     render() {
         return (
             <div className="container">
@@ -46,20 +41,14 @@ class Customertab extends Component {
                                         <td>{x.ContactNo}</td>
                                         <td>{x.EmailID}</td>
                                         <td>{x.Purchaseddate}</td>
-
                                     </tr>
                                 )
                             })
                         }
-
                     </tbody>
-
                 </table>
-
-
             </div>
         )
-
     }
 }
 
