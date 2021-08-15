@@ -1,11 +1,35 @@
+import axios from 'axios';
+import { Component } from 'react';
 import Formcomp from "../Form/Formcomp";
+import { params, withRouter } from "react-router-dom";
 
-function Editform() {
-    return (
-        <div>
-            <button className="btn btn-dark fw-bold mt-5 ms-3">Update Details</button>
-            <Formcomp></Formcomp>
-        </div>
-    );
+class Editform extends Component {
+
+    state = { user: null };
+
+    componentDidMount() {
+        console.log(this.props?.match?.params?.id)
+        axios.get(`http://localhost:3002/api/stuff/${this.props.match.params.id}`)
+            .then((res) => {
+                this.setState({ user: res.data });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    render() {
+        if (this.state.user === null) {
+            return <h1 style={{ textAlign: 'center'}}>Loading</h1>
+        }
+
+        return (
+            <div>
+                {/* {this.props.match.params.id} */}
+                <Formcomp u={this.state.user}></Formcomp>
+            </div>
+        );
+    }
+   
 }
-export default Editform;
+export default withRouter(Editform);

@@ -9,21 +9,26 @@ import Editform from './Editform/Editform';
 function App() {
   return (
     <BrowserRouter>
-      <div>
-        <nav>
-          <Link className="text-decoration-none p-2 ms-2 bg-secondary text-white border rounded " to="/Formcomp">CustomerDetails</Link>
-          <Link className="text-decoration-none p-2  bg-secondary text-white border rounded " to="/Customertab">CustomerDB</Link>
-          <Link className="text-decoration-none p-2  bg-secondary text-white border rounded " to="/Editform">Edit Details</Link>
+      <div className="row">
+        <nav >
+          <Link className=" text-decoration-none p-2 ms-2 bg-secondary text-white border rounded " to="/CustomerDetails">CustomerDetails</Link>
+          <Link className="text-decoration-none p-2  bg-secondary text-white border rounded " to="/CustomerDB">CustomerDB</Link>
+          <Link className="text-decoration-none p-2  bg-secondary text-white border rounded " to="/EditableForm">Edit Details</Link>
+
         </nav>
         <Switch>
-          <Route exact path="/Formcomp">
+          <Route exact path="/CustomerDetails">
             <Formcomp />
           </Route>
-          <Route path="/Customertab">
+          <Route exact path="/CustomerDB">
             <Customertab />
           </Route>
-          <Route path="/Editform">
+         
+          <Route path={"/CustomerDB/:id"} >
             <Editform />
+          </Route>
+          <Route exact path="/">
+            <Formcomp />
           </Route>
         </Switch>
       </div>

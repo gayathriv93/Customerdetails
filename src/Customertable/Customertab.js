@@ -1,22 +1,35 @@
 import axios from 'axios';
 import { Component } from 'react';
+import { Link } from "react-router-dom";
+
 class Customertab extends Component {
     state = {
         users: []
     }
     componentDidMount() {
-        console.log("db connected");
-    }
-    handleClick = () => {
         axios.get('http://localhost:3002/api/stuff')
             .then((res) => {
                 this.setState({ users: res.data })
             })
     }
+
+
+    handleRowdelete = (id) => {
+        console.log(id);
+        axios.delete(`http://localhost:3002/api/stuff/${id}`)
+            .then(res => {
+
+                console.log(res.data);
+                const users = this.state.users.filter(x => x._id !== id)
+                this.setState({ users })
+
+            })
+            .catch(error => console.error(error))
+    }
+
     render() {
         return (
             <div className="container">
-                <button className="btn btn-success mt-5" onClick={this.handleClick}>Show All Customers</button>
                 <h2 className="text-center text-primary "> CUSTOMER DATABASE</h2>
                 <table className="table table-bordered table-info">
                     <thead >
@@ -32,15 +45,22 @@ class Customertab extends Component {
                     </thead>
                     <tbody>
                         {
-                            this.state.users.map(x => {
+                            this.state.users.map((x, i) => {
                                 return (
-                                    <tr key={x.id}>
-                                        <th scope="row">{x.id}</th>
-                                        <td>{x.Firstname}</td>
-                                        <td>{x.Lastname}</td>
-                                        <td>{x.ContactNo}</td>
-                                        <td>{x.EmailID}</td>
-                                        <td>{x.Purchaseddate}</td>
+                                    <tr key={x._id}>
+                                        <th scope="row">{i + 1}</th>
+                                        <td>{x.firstName}</td>
+                                        <td>{x.secondName}</td>
+                                        <td>{x.mobile}</td>
+                                        <td>{x.email}</td>
+                                        <td>{x.purchaseDate}</td>
+                                        <td>
+                                            <Link className="btn m-1 btn-info" to={`CustomerDB/${x._id}`}>Edit </Link>
+                                            {/* <button onClick={this.handleRowchange} className="btn m-1 btn-info"> Edit </button> */}
+                                            <button onClick={() => {
+                                                this.handleRowdelete(x._id)
+                                            }} className="btn m-1 btn-danger">Delete</button>
+                                        </td>
                                     </tr>
                                 )
                             })
